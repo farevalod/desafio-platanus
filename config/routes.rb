@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  post 'cuentas/:address/tx' => 'transactions#create'
+  get 'cuentas/:address' => 'cuentas#show'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
