@@ -1,5 +1,27 @@
-<h1><%= @cuenta.address %> </h1>
+<h1>Cuenta <%= @cuenta.address %> </h1>
+<h4>Saldo</h4>
+<%= number_to_currency(@cuenta.saldo, precision: 0, separator: ".") %>
+<h4>Transacciones</h4>
 <% @cuenta.transactions.each do |t| %>
-	<%= t.id %>
-	<%= t.amount %>
+	<div class="transaction">
+		<%= t.description %>
+		<%= (t.deposit?) ? "Deposito" : "Retiro" %>
+		<%= number_to_currency(t.amount, precision: 0, separator: ".") %>
+	</div>
+<% end %>
+<h4> Nueva Transaccion</h4>
+<%= form_tag("/cuentas/"+@cuenta.address+"/tx", method: "post") do %>
+	<%= label_tag(:password, "Password") %>
+	<%= text_field(:transaction, :password) %>
+	<br/>
+	<%= label_tag(:description, "Descripcion") %>
+	<%= text_field(:transaction, :description) %>
+	<br/>
+	<%= label_tag(:amount, "Monto") %>
+	<%= number_field(:transaction, :amount, min: 1) %>
+	<br/>
+	<%= select(:transaction, :instruction, options_for_select([['Deposito', 1], ['Retiro', 0]])) %>
+	<br/>
+	<br/>
+	<%= submit_tag %>
 <% end %>
