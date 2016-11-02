@@ -1,0 +1,5 @@
+<h1><%= @cuenta.address %> </h1>
+<% @cuenta.transactions.each do |t| %>
+	<%= t.id %>
+	<%= t.amount %>
+<% end %>
