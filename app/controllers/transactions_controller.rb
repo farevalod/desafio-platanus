@@ -5,7 +5,7 @@ class TransactionsController < ApplicationController
 			flash[:error] = "La cuenta ingresada no existe."
 			redirect_to :root and return
 		end
-		if params[:instruction].to_i == 0 and cuenta.saldo < params[:transaction][:amount].to_i
+		if (params[:transaction][:instruction].to_i == 0) and (cuenta.saldo < params[:transaction][:amount].to_i)
 			flash[:error] = "La cuenta ingresada no tiene saldo suficiente."
 			redirect_to "/cuentas/"+cuenta.address and return
 		end
